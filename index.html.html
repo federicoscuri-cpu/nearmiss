@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentazione CoAuthor AI - Mega Italia Media</title>
+    <meta name="description" content="Trasforma la gestione dei Near Miss da obbligo a opportunità con CoAuthor AI. Crea una cultura della sicurezza e una formazione efficace.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Optimization (Preload) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" xintegrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- CSS unificato e organizzato con @layer per manutenibilità -->
+    <style>
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        @layer base {
+            body {
+                font-family: 'Inter', sans-serif;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            :focus-visible {
+                outline: 3px solid #F59E0B;
+                outline-offset: 2px;
+                border-radius: 4px;
+            }
+        }
+
+        @layer components {
+            .nav-link::after {
+                content: '';
+                display: block;
+                width: 0;
+                height: 2px;
+                background: #E81A24;
+                transition: width .3s;
+            }
+            .nav-link:hover::after, .nav-link.active::after {
+                width: 100%;
+            }
+            .nav-link.active {
+                color: #E81A24;
+                font-weight: 700;
+            }
+            .cta-button:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+            .faq-icon-plus, .faq-icon-minus {
+                transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            }
+            .logo-slider::before,
+            .logo-slider::after {
+              content: "";
+              position: absolute;
+              height: 100%;
+              width: 150px;
+              z-index: 2;
+              top: 0;
+            }
+            .logo-slider::before {
+              left: 0;
+              background: linear-gradient(to right, rgb(249 250 251) 0%, rgba(255, 255, 255, 0) 100%);
+            }
+            .logo-slider::after {
+              right: 0;
+              background: linear-gradient(to left, rgb(249 250 251) 0%, rgba(255, 255, 255, 0) 100%);
+            }
+        }
+
+        @layer utilities {
+            @keyframes fadeInDown {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in-down { animation: fadeInDown 1s ease-out forwards; }
+            .animate-fade-in-up { animation: fadeInUp 1s ease-out 0.3s forwards; opacity: 0; }
+
+            .section-fade-in {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            .section-fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            @keyframes scroll {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(calc(-250px * 10))' },
+            }
+            .animate-scroll {
+                 animation: scroll 40s linear infinite;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                *, ::before, ::after {
+                    animation-delay: -1ms !important;
+                    animation-duration: 1ms !important;
+                    animation-iteration-count: 1 !important;
+                    background-attachment: scroll !important;
+                    scroll-behavior: auto !important;
+                    transition-duration: 0.01ms !important;
+                    transition-delay: 0s !important;
+                }
+                .section-fade-in, .animate-scroll {
+                    opacity: 1;
+                    transform: translateY(0);
+                    animation: none;
+                }
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-center space-y-3">
+        <button id="scroll-to-top" class="bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-red-700 hover:scale-110 transition-all duration-200 hidden" aria-label="Torna in cima">
+            <i class="fas fa-chevron-up" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <header id="page-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
+        <div class="bg-white border-b border-slate-200 shadow-md">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
+                <a href="https://www.megaitaliamedia.com/it/" class="flex-shrink-0" aria-label="Homepage Mega Italia Media">
+                   <img width="160" height="45" class="h-9 md:h-11 w-auto" src="https://www.megaitaliamedia.com/_resources/images/logo-mim-nero-payoff-web.jpg" alt="Logo Mega Italia Media">
+                </a>
+                <nav class="hidden lg:flex items-center space-x-6" aria-label="Navigazione principale">
+                    <a href="#problema" class="font-medium nav-link text-gray-700">Il Problema</a>
+                    <a href="#soluzione" class="font-medium nav-link text-gray-700">La Soluzione</a>
+                    <a href="#vantaggi" class="font-medium nav-link text-gray-700">Vantaggi</a>
+                    <a href="#faq" class="font-medium nav-link text-gray-700">FAQ</a>
+                    <a href="https://www.megaitaliamedia.com/it/piattaforma-elearning/prova-demo-dyndevice/" target="_blank" rel="noopener noreferrer" class="ml-4 bg-red-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-red-700 transition duration-300 shadow-sm hover:shadow-md cta-button">
+                        Richiedi una Demo
+                    </a>
+                </nav>
+                <div class="lg:hidden">
+                    <button id="mobile-menu-button" class="p-2 rounded-md text-gray-700" aria-label="Apri menu di navigazione" aria-controls="mobile-menu" aria-expanded="false">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 bg-white">
+            <nav aria-label="Navigazione mobile">
+                <a href="#problema" class="block text-center py-3 px-4 text-base text-gray-700 hover:bg-red-50 transition duration-200">Il Problema</a>
+                <a href="#soluzione" class="block text-center py-3 px-4 text-base text-gray-700 hover:bg-red-50 transition duration-200">La Soluzione</a>
+                <a href="#vantaggi" class="block text-center py-3 px-4 text-base text-gray-700 hover:bg-red-50 transition duration-200">Vantaggi</a>
+                <a href="#faq" class="block text-center py-3 px-4 text-base text-gray-700 hover:bg-red-50 transition duration-200">FAQ</a>
+                <a href="https://www.megaitaliamedia.com/it/piattaforma-elearning/prova-demo-dyndevice/" target="_blank" rel="noopener noreferrer" class="block text-center py-4 px-4 text-base bg-red-600 text-white hover:bg-red-700 transition duration-200">Richiedi una Demo</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="titolo" class="relative min-h-screen flex items-center bg-gray-900 text-white overflow-hidden pt-24">
+            <div class="absolute inset-0 bg-gradient-to-tr from-gray-900 via-gray-800 to-red-900 opacity-80 z-0"></div>
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1579548122080-c35fd6820ecb?q=80&w=2070&auto=format&fit=crop" alt="Sfondo astratto con effetto domino" class="w-full h-full object-cover opacity-10" fetchpriority="high">
+            </div>
+            <div class="container mx-auto px-4 sm:px-6 text-center relative z-10">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">Gestione dei Near Miss: Da Obbligo a Opportunità</h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up">Trasforma un'incombenza legislativa in un pilastro della tua cultura della sicurezza con CoAuthor AI.</p>
+                <div class="mt-10 animate-fade-in-up" style="animation-delay: 0.6s;">
+                    <a href="#contatti" class="bg-red-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-red-700 transition duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 max-w-xs mx-auto cta-button">
+                        Scopri come
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="clienti" class="py-16 bg-gray-50 section-fade-in">
+            <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+                <h2 class="text-3xl font-bold text-center text-red-600 mb-12">Attualmente stiamo formando i lavoratori di</h2>
+                <div class="logo-slider h-24 w-full mx-auto overflow-hidden relative">
+                    <div class="slide-track flex animate-scroll">
+                        <!-- Loghi duplicati per un loop infinito -->
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/apple.png" alt="Apple" class="max-h-16 max-w-full"></div>
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/dhl.png" alt="DHL" class="max-h-16 max-w-full"></div>
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/openjobmetis.png" alt="OpenJobMetis" class="max-h-16 max-w-full"></div>
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/fincantieri.png" alt="Fincantieri" class="max-h-16 max-w-full"></div>
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/apple.png" alt="Apple" class="max-h-16 max-w-full"></div>
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/dhl.png" alt="DHL" class="max-h-16 max-w-full"></div>
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/openjobmetis.png" alt="OpenJobMetis" class="max-h-16 max-w-full"></div>
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/fincantieri.png" alt="Fincantieri" class="max-h-16 max-w-full"></div>
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/apple.png" alt="Apple" class="max-h-16 max-w-full"></div>
+                        <div class="slide flex-shrink-0 w-[250px] h-24 flex items-center justify-center p-4"><img src="https://www.megaitaliamedia.com/_resources/images/loghi-clienti/dhl.png" alt="DHL" class="max-h-16 max-w-full"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="problema" class="py-24 lg:py-32 bg-white section-fade-in" role="region" aria-labelledby="problema-title">
+            <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 id="problema-title" class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Il Problema Nascosto: Cos'è un Near Miss?</h2>
+                    <p class="mt-4 text-lg max-w-3xl mx-auto text-gray-600">È il segnale d'allarme che non puoi permetterti di ignorare.</p>
+                </div>
+                <div class="grid lg:grid-cols-2 lg:gap-16 items-center">
+                    <div class="mb-10 lg:mb-0">
+                        <img loading="lazy" src="https://elearning.megaitaliamedia.it/_resources/images/immagini-commerciali/EL0268_b_Lavoratori_aggiornamento_quinquennale_edilizia_6_ore.webp" alt="Lavoratori in un cantiere edile, un ambiente dove i near miss sono frequenti e la sicurezza è fondamentale." class="rounded-xl shadow-2xl mx-auto w-full h-auto object-cover">
+                    </div>
+                    <div class="space-y-8">
+                        <p class="text-xl text-gray-700 leading-relaxed">
+                            Un near miss (o "mancato infortunio") è un qualsiasi evento che, in circostanze leggermente diverse, avrebbe potuto causare un infortunio, un danno alla salute o un danno materiale. <strong>Non è fortuna, è un dato.</strong>
+                        </p>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 p-6 rounded-lg shadow-md border-l-4 border-red-500">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                                        <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" /></svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-900">Sono Avvertimenti Critici</h3>
+                                        <p class="mt-1 text-gray-600">Ogni near miss è un'anteprima gratuita di un potenziale incidente futuro. Ignorarlo è come disattivare un allarme antincendio.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-lg shadow-md border-l-4 border-yellow-500">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-12 w-12 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
+                                        <svg class="h-6 w-6 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-gray-900">Indicano Falle nel Sistema</h3>
+                                        <p class="mt-1 text-gray-600">Evidenziano vulnerabilità nascoste nei processi, nelle procedure, o nella formazione che devono essere corrette.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="legale" class="py-24 lg:py-32 bg-gray-50 section-fade-in" role="region" aria-labelledby="legale-title">
+            <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+                <div class="text-center mb-12 md:mb-16 max-w-4xl mx-auto">
+                    <h2 id="legale-title" class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">L'Incombenza Legale: Un Obbligo Ineludibile</h2>
+                    <p class="mt-4 text-lg text-gray-600">Ignorare i near miss espone la tua azienda a gravi rischi legali, penali e amministrativi.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500 flex items-start space-x-4">
+                        <div class="flex-shrink-0 pt-1"><i class="fas fa-balance-scale-right text-2xl text-red-500"></i></div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">Valutazione di TUTTI i Rischi</h3>
+                            <p class="text-gray-600 text-sm">(D.Lgs. 81/2008) I near miss sono rischi reali e manifesti, da analizzare per aggiornare il DVR.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500 flex items-start space-x-4">
+                        <div class="flex-shrink-0 pt-1"><i class="fas fa-gavel text-2xl text-red-500"></i></div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">Responsabilità Penale</h3>
+                            <p class="text-gray-600 text-sm">(Cassazione) Il datore di lavoro è responsabile se non ha prevenuto prassi pericolose già emerse.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500 flex items-start space-x-4">
+                        <div class="flex-shrink-0 pt-1"><i class="fas fa-user-shield text-2xl text-red-500"></i></div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">Vigilanza e Ruolo del Preposto</h3>
+                            <p class="text-gray-600 text-sm">(D.Lgs. 81/2008) Un sistema tracciato è essenziale per la vigilanza e la segnalazione efficace.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500 flex items-start space-x-4">
+                        <div class="flex-shrink-0 pt-1"><i class="fas fa-file-invoice-dollar text-2xl text-red-500"></i></div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">Responsabilità Amministrativa</h3>
+                            <p class="text-gray-600 text-sm">(D.Lgs. 231/2001) Un Modello 231 è inefficace se non monitora gli "eventi sentinella".</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500 flex items-start space-x-4">
+                        <div class="flex-shrink-0 pt-1"><i class="fas fa-graduation-cap text-2xl text-red-500"></i></div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">Formazione Efficace</h3>
+                            <p class="text-gray-600 text-sm">(Accordo Stato-Regioni 2025) La norma richiede di trattare i "mancati infortuni" nella formazione.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500 flex items-start space-x-4">
+                        <div class="flex-shrink-0 pt-1"><i class="fas fa-sitemap text-2xl text-red-500"></i></div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-1">Adeguatezza Modello Organizzativo</h3>
+                            <p class="text-gray-600 text-sm">La gestione dei near miss è prova di un modello organizzativo efficace e diligentemente attuato.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section id="soluzione" class="py-24 lg:py-32 bg-white section-fade-in" role="region" aria-labelledby="soluzione-title">
+            <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+                <div class="text-center mb-12 md:mb-16 max-w-4xl mx-auto">
+                    <h2 id="soluzione-title" class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">La Soluzione: CoAuthor AI</h2>
+                    <p class="mt-4 text-lg text-gray-600">Trasformiamo un'incombenza complessa in una soluzione semplice, potente e immediata.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div class="space-y-6">
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            La nostra piattaforma di IA Generativa analizza i tuoi documenti di sicurezza (verbali di near miss, procedure, DVR) per creare istantaneamente una formazione mirata e rilevante.
+                        </p>
+                        <div class="relative pl-12 py-4 group">
+                            <div class="absolute top-0 left-5 h-full w-0.5 bg-gray-200 group-hover:bg-red-500 transition-colors duration-300"></div>
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 h-10 w-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center transition-all duration-300 group-hover:border-red-500 group-hover:scale-110">
+                                <i class="fas fa-upload text-red-600"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-gray-900">1. Carica</h3>
+                            <p class="text-gray-600">Inserisci i tuoi documenti in modo sicuro.</p>
+                        </div>
+                        <div class="relative pl-12 py-4 group">
+                            <div class="absolute top-0 left-5 h-full w-0.5 bg-gray-200 group-hover:bg-red-500 transition-colors duration-300"></div>
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 h-10 w-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center transition-all duration-300 group-hover:border-red-500 group-hover:scale-110">
+                                <i class="fas fa-magic text-red-600"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-gray-900">2. Genera</h3>
+                            <p class="text-gray-600">L'AI crea videolezioni e presentazioni in pochi minuti.</p>
+                        </div>
+                        <div class="relative pl-12 py-4 group">
+                             <div class="absolute top-0 left-5 h-1/2 w-0.5 bg-gray-200 group-hover:bg-red-500 transition-colors duration-300"></div>
+                            <div class="absolute top-1/2 -translate-y-1/2 left-0 h-10 w-10 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center transition-all duration-300 group-hover:border-red-500 group-hover:scale-110">
+                                <i class="fas fa-chalkboard-teacher text-red-600"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-gray-900">3. Implementa</h3>
+                            <p class="text-gray-600">Eroga e traccia i corsi nella tua piattaforma e-learning.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img loading="lazy" src="https://www.esa-automation.com/wp-content/uploads/2024/11/immagine_articolo_blog_ai_esa-copia.jpg" alt="Illustrazione astratta di un cervello digitale, a simboleggiare l'Intelligenza Artificiale." class="rounded-xl shadow-2xl mx-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="vantaggi" class="py-24 lg:py-32 bg-white section-fade-in" role="region" aria-labelledby="vantaggi-title">
+            <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+                <div class="text-center mb-12 md:mb-16 max-w-4xl mx-auto">
+                     <h2 id="vantaggi-title" class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">I Vantaggi Concreti per la Tua Azienda</h2>
+                     <p class="mt-4 text-lg text-gray-600">Dalla Teoria alla Pratica: Cosa Ottieni con CoAuthor AI?</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-xl text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-t-4 border-red-500">
+                        <div class="mx-auto mb-6 bg-red-100 h-20 w-20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-4xl text-red-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Compliance Semplificata</h3>
+                        <p class="text-gray-600">Gestisci e documenti i near miss in modo sistematico, creando un solido scudo legale.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-xl text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-t-4 border-blue-500">
+                         <div class="mx-auto mb-6 bg-blue-100 h-20 w-20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-ruler-combined text-4xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Formazione su Misura</h3>
+                        <p class="text-gray-600">Crea corsi basati sui rischi reali e specifici della tua azienda in pochi minuti.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-xl text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-t-4 border-emerald-500">
+                         <div class="mx-auto mb-6 bg-emerald-100 h-20 w-20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-users text-4xl text-emerald-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Cultura della Sicurezza</h3>
+                        <p class="text-gray-600">Trasforma la segnalazione da "fastidio" a un processo virtuoso che genera valore.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="corsi" class="py-16 lg:py-20 bg-gray-50 section-fade-in" role="region" aria-labelledby="corsi-title">
+            <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+                <div class="text-center mb-10">
+                    <h2 id="corsi-title" class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">I nostri corsi più richiesti</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="group relative border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold z-10">#1</div>
+                        <a href="#"><img src="https://elearning.megaitaliamedia.it/_resources/images/immagini-commerciali/EL0849_b_lavoratori_formazione_generale_4_ore.webp" alt="Corso Lavoratori" class="w-full h-auto"></a>
+                        <div class="p-4 text-center">
+                            <a href="#"><h3 class="text-sm font-semibold text-blue-700 h-16">Lavoratori - Formazione generale - Edizione II - 4 ore</h3></a>
+                            <p class="mt-2"><span class="text-sm text-gray-800">Prezzo:</span> <span class="font-bold text-lg text-gray-900">45.00 €</span></p>
+                        </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="bg-red-600 text-white uppercase text-xs font-bold py-3 px-5 rounded-md">Aggiungi al carrello</button>
+                        </div>
+                    </div>
+                    <div class="group relative border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold z-10">#2</div>
+                        <a href="#"><img src="https://elearning.megaitaliamedia.it/_resources/images/immagini-commerciali/EL1043_b_rspp_aspp_accordo_stato_regioni_2025_formazione_per_la_salute_sicurezza_sul_lavoro_2_ore.webp" alt="Corso RSPP-ASPP" class="w-full h-auto"></a>
+                        <div class="p-4 text-center">
+                            <a href="#"><h3 class="text-sm font-semibold text-blue-700 h-16">RSPP-ASPP - Aggiornamento 2 ore - Accordo Stato-Regioni...</h3></a>
+                            <p class="mt-2"><span class="text-sm text-gray-800">Prezzo:</span> <span class="font-bold text-lg text-gray-900">35.00 €</span></p>
+                        </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="bg-red-600 text-white uppercase text-xs font-bold py-3 px-5 rounded-md">Aggiungi al carrello</button>
+                        </div>
+                    </div>
+                    <div class="group relative border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold z-10">#3</div>
+                        <a href="#"><img src="https://elearning.megaitaliamedia.it/_resources/images/immagini-commerciali/EL0991_b_lavoratori_formazione_generale_specifica_basso_rischio_uffici_8_ore.webp" alt="Corso Lavoratori Basso Rischio" class="w-full h-auto"></a>
+                        <div class="p-4 text-center">
+                            <a href="#"><h3 class="text-sm font-semibold text-blue-700 h-16">Lavoratori - Formazione generale e specifica Basso rischio Uffici...</h3></a>
+                            <p class="mt-2"><span class="text-sm text-gray-800">Prezzo:</span> <span class="font-bold text-lg text-gray-900">80.00 €</span></p>
+                        </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="bg-red-600 text-white uppercase text-xs font-bold py-3 px-5 rounded-md">Aggiungi al carrello</button>
+                        </div>
+                    </div>
+                    <div class="group relative border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">
+                        <div class="absolute top-2 left-2 bg-red-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold z-10">#4</div>
+                        <a href="#"><img src="https://elearning.megaitaliamedia.it/_resources/images/immagini-commerciali/EL1013_b_Datore_di_lavoro_Sicurezza_sul_lavoro_16_ore.webp" alt="Corso Datore di Lavoro" class="w-full h-auto"></a>
+                        <div class="p-4 text-center">
+                            <a href="#"><h3 class="text-sm font-semibold text-blue-700 h-16">Datore di Lavoro - Sicurezza sul lavoro - 16 ore</h3></a>
+                            <p class="mt-2"><span class="text-sm text-gray-800">Prezzo:</span> <span class="font-bold text-lg text-gray-900">195.00 €</span></p>
+                        </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="bg-red-600 text-white uppercase text-xs font-bold py-3 px-5 rounded-md">Aggiungi al carrello</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certificazioni" class="py-16 bg-white section-fade-in" role="region" aria-labelledby="cert-title">
+            <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+                <div class="text-center mb-10">
+                    <h2 id="cert-title" class="text-3xl font-extrabold text-gray-900 tracking-tight">Le Nostre Certificazioni</h2>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-8 items-center">
+                    <div class="flex justify-center"><a href="#"><img src="https://www.dyndevice.com/_resources/images/scorm.png" alt="Scorm Player DynDevice" class="max-h-20 w-auto"></a></div>
+                    <div class="flex justify-center"><a href="#"><img src="https://www.dyndevice.com/_resources/images/capterra.png" alt="Capterra" class="max-h-20 w-auto"></a></div>
+                    <div class="flex justify-center"><a href="#"><img src="https://www.dyndevice.com/_resources/images/user-experience-badge-2018-feb-small.png" alt="eLearningIndustry: Best User Experience" class="max-h-20 w-auto"></a></div>
+                    <div class="flex justify-center"><a href="#"><img src="https://www.dyndevice.com/_resources/images/value-for-money-badge-2019-feb.png" alt="eLearningIndustry: Value For Money" class="max-h-20 w-auto"></a></div>
+                    <div class="flex justify-center"><a href="#"><img src="https://www.megaitaliamedia.com/_resources/images/Loghi%20certificazioni/acn.png" alt="ACN" class="max-h-20 w-auto"></a></div>
+                    <div class="flex justify-center"><a href="#"><img src="https://www.megaitaliamedia.com/_resources/images/Loghi%20certificazioni/ias-register.png" alt="IAS Register" class="max-h-20 w-auto"></a></div>
+                    <div class="flex justify-center"><a href="#"><img src="https://www.megaitaliamedia.com/_resources/images/Loghi%20certificazioni/IMQ.png" alt="IMQ" class="max-h-20 w-auto"></a></div>
+                    <div class="flex justify-center"><a href="#"><img src="https://www.megaitaliamedia.com/_resources/images/Loghi%20certificazioni/lombardia.png" alt="Regione Lombardia" class="max-h-20 w-auto"></a></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mepa" class="bg-gray-800 section-fade-in">
+            <div class="container mx-auto px-4 sm:px-6 max-w-7xl py-10">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                    <div class="w-full md:w-1/4 flex justify-center"><a href="#"><img src="https://www.megaitaliamedia.com/_resources/images/acquisti-in-rete-pa.png" alt="MEPA - Acquisti in rete PA" class="h-auto" style="max-height: 70px;"></a></div>
+                    <div class="w-full md:w-1/2"><h3 class="text-lg font-semibold text-white">Il nostro catalogo di prodotti e corsi online è presente su MEPA, il portale della Pubblica Amministrazione.</h3></div>
+                    <div class="w-full md:w-1/4 flex justify-center"><a href="#" class="bg-white text-gray-900 font-bold py-3 px-6 rounded-md shadow-md hover:bg-gray-200 transition-colors whitespace-nowrap">MAGGIORI INFORMAZIONI</a></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-24 lg:py-32 bg-white section-fade-in" role="region" aria-labelledby="faq-title">
+            <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+                <div class="text-center mb-12 md:mb-16 max-w-4xl mx-auto">
+                    <h2 id="faq-title" class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">Domande Frequenti (FAQ)</h2>
+                    <p class="mt-4 text-lg text-gray-600">Trova qui le risposte alle domande più comuni.</p>
+                </div>
+                <div class="max-w-3xl mx-auto space-y-4" id="faq-accordion">
+                    <div class="border border-gray-200 rounded-lg bg-gray-50">
+                        <h3>
+                            <button class="faq-question w-full flex justify-between items-center text-left p-5 font-semibold" aria-expanded="false" aria-controls="faq1-answer">
+                                <span class="text-gray-800">I miei dati aziendali sono al sicuro?</span>
+                                <div class="relative h-6 w-6">
+                                    <i class="fas fa-plus faq-icon-plus absolute inset-0"></i>
+                                    <i class="fas fa-minus faq-icon-minus absolute inset-0 transform scale-0 opacity-0"></i>
+                                </div>
+                            </button>
+                        </h3>
+                        <div id="faq1-answer" class="faq-answer overflow-hidden" style="max-height: 0px;">
+                            <div class="p-5 pt-0 text-gray-600">
+                                Assolutamente sì. La sicurezza e la privacy sono la nostra massima priorità. I documenti caricati non vengono MAI utilizzati per addestrare i nostri modelli di IA e sono protetti da contratti blindati in piena conformità con GDPR e AI Act.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg bg-gray-50">
+                        <h3>
+                            <button class="faq-question w-full flex justify-between items-center text-left p-5 font-semibold" aria-expanded="false" aria-controls="faq2-answer">
+                                <span class="text-gray-800">CoAuthor AI sostituisce i nostri consulenti o l'RSPP?</span>
+                                 <div class="relative h-6 w-6">
+                                    <i class="fas fa-plus faq-icon-plus absolute inset-0"></i>
+                                    <i class="fas fa-minus faq-icon-minus absolute inset-0 transform scale-0 opacity-0"></i>
+                                </div>
+                            </button>
+                        </h3>
+                        <div id="faq2-answer" class="faq-answer overflow-hidden" style="max-height: 0px;">
+                            <div class="p-5 pt-0 text-gray-600">
+                                No, CoAuthor AI è uno strumento di supporto progettato per potenziare il lavoro degli esperti di sicurezza. Automatizza la creazione di materiale formativo, liberando tempo prezioso per attività a più alto valore aggiunto.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contatti" class="py-24 lg:py-32 bg-red-700 text-white section-fade-in" role="region" aria-labelledby="contatti-title">
+            <div class="container mx-auto px-4 sm:px-6 text-center">
+                <h2 id="contatti-title" class="text-3xl md:text-5xl font-extrabold mb-4">Non subire la normativa. Guidala a tuo vantaggio.</h2>
+                <p class="text-lg md:text-xl text-red-100 max-w-3xl mx-auto mb-10">Con CoAuthor AI, l'obbligo di gestire i near miss diventa lo strumento più potente per creare una formazione efficace e proteggere la tua azienda.</p>
+                <a href="mailto:info@megaitaliamedia.it" class="bg-white text-red-700 px-10 py-4 rounded-lg text-xl font-bold hover:bg-red-100 transition duration-300 transform hover:scale-105 inline-block shadow-2xl cta-button">
+                    Contattaci per una demo
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="bg-gray-900 text-gray-300">
+        <div class="container mx-auto px-4 sm:px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-4 md:col-span-1">
+                    <h3 class="text-white text-lg font-bold mb-4">MEGA ITALIA MEDIA S.p.A.</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><i class="fas fa-map-pin text-red-500 mt-1 mr-3 w-4"></i><span>Via Roncadelle, 70A - 25030<br>Castel Mella (BS) - Italy</span></li>
+                        <li class="flex items-start"><i class="fas fa-phone-alt text-red-500 mt-1 mr-3 w-4"></i><a href="tel:+390302650661" class="hover:text-white font-semibold">(+39) 030.2650661</a></li>
+                        <li class="flex items-start"><i class="far fa-envelope text-red-500 mt-1 mr-3 w-4"></i><a href="mailto:info@megaitaliamedia.it" class="hover:text-white font-semibold">info@megaitaliamedia.it</a></li>
+                        <li class="flex items-start"><i class="fas fa-at text-red-500 mt-1 mr-3 w-4"></i><span>PEC: <a href="mailto:megaitaliamedia@legalmail.it" class="hover:text-white font-semibold">megaitaliamedia@legalmail.it</a></span></li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-3 md:col-span-1">
+                    <ul class="space-y-2">
+                        <li><a href="https://www.megaitaliamedia.com/it/noi/comunicati-stampa/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Comunicati stampa</a></li>
+                        <li><a href="https://www.megaitaliamedia.com/it/noi/rassegna-stampa/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Rassegna stampa</a></li>
+                        <li><a href="https://www.megaitaliamedia.com/it/noi/partner/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Partner</a></li>
+                        <li><a href="https://www.megaitaliamedia.com/it/noi/referenze/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Referenze</a></li>
+                        <li><a href="https://www.megaitaliamedia.com/it/noi/premi-vinti/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Premi vinti</a></li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-3">
+                    <ul class="space-y-2">
+                        <li><a href="https://www.megaitaliamedia.com/it/sicurezza-lavoro-rischi/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Argomenti</a></li>
+                        <li><a href="https://www.megaitaliamedia.com/it/corsi-online/rigore-didattico/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Rigore didattico</a></li>
+                        <li><a href="https://www.megaitaliamedia.com/it/aiuto/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Come acquistare</a></li>
+                        <li><a href="https://www.megaitaliamedia.com/it/glossario/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Glossario</a></li>
+                        <li><a href="https://www.megaitaliamedia.com/it/assistenza/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Assistenza</a></li>
+                        <li><a href="https://www.megaitaliamedia.com/it/prodotti-servizi/prodotti-per-la-formazione/condizioni-generali-unificate/" class="flex items-center hover:text-white font-semibold"><i class="fas fa-caret-right mr-2 text-red-500"></i>Condizioni</a></li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-2 text-center lg:text-left">
+                    <a href="https://www.megaitaliamedia.com/it/contatti/" class="text-white font-bold hover:underline">CONTATTACI</a>
+                    <p class="mb-4 text-gray-400"><a href="https://www.megaitaliamedia.com/it/contatti/" class="font-semibold hover:text-white">Scrivici una email</a></p>
+                    <p class="text-white font-bold mb-2">SEGUICI SUI SOCIAL</p>
+                    <div class="flex justify-center lg:justify-start space-x-3 mb-4">
+                        <a href="https://www.facebook.com/megaitaliamedia/" rel="noreferrer" target="_blank" aria-label="Facebook"><img width="24" height="24" loading="lazy" alt="Facebook" src="https://www.megaitaliamedia.com/_resources/images/icon/facebook.png"></a>
+                        <a href="https://www.youtube.com/user/megaitaliamedia" rel="noreferrer" target="_blank" aria-label="YouTube"><img width="24" height="24" loading="lazy" alt="YouTube" src="https://www.megaitaliamedia.com/_resources/images/icon/youtube.png"></a>
+                        <a href="https://www.linkedin.com/company/mega-italia-media" rel="noreferrer" target="_blank" aria-label="LinkedIn"><img width="24" height="24" loading="lazy" alt="LinkedIn" src="https://www.megaitaliamedia.com/_resources/images/icon/linkedin.png"></a>
+                        <a href="https://www.instagram.com/megaitaliamedia/" rel="noreferrer" target="_blank" aria-label="Instagram"><img width="24" height="24" loading="lazy" alt="Instagram" src="https://www.megaitaliamedia.com/_resources/images/icon/instagram.png"></a>
+                    </div>
+                    <a href="https://www.megaitaliamedia.com/it/" aria-label="Homepage"><img class="mx-auto lg:mx-0" width="230" height="48" src="https://www.megaitaliamedia.com/_resources/images/logo-bianco-payoff-bianco.png" alt="Logo MIM" loading="lazy"></a>
+                </div>
+                <div class="lg:col-span-12 text-center pt-8 border-t border-gray-700">
+                    <p class="text-sm text-gray-400">C.F./P.Iva 03556360174 | Numero REA BS-418630 <span class="hidden md:inline">|</span><br class="md:hidden"> Capitale Sociale € 500.000 | Codice destinatario SUBM70N | Codice PEPPOL 0211:IT03556360174</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-black bg-opacity-25">
+            <div class="container mx-auto px-4 sm:px-6 py-4 text-center">
+                <p class="text-sm text-gray-400">
+                    <a href="https://www.megaitaliamedia.com/it/privacy/" class="hover:text-white font-semibold">Privacy Policy</a> |
+                    <a href="https://www.megaitaliamedia.com/it/cookie-policy/" class="hover:text-white font-semibold">Cookie Policy</a> |
+                    <a href="https://www.megaitaliamedia.com/it/trasparenza/" class="hover:text-white font-semibold">Trasparenza</a> |
+                    <a href="https://www.megaitaliamedia.com/it/dichiarazione-accessibilita/" class="hover:text-white font-semibold">Dichiarazione di accessibilità</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('page-header');
+            const scrollTopBtn = document.getElementById('scroll-to-top');
+            if (header && scrollTopBtn) {
+                window.addEventListener('scroll', () => {
+                    scrollTopBtn.classList.toggle('hidden', window.scrollY <= 80);
+                }, { passive: true });
+                scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    const isHidden = mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', !isHidden);
+                });
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+
+            const sectionsToFade = document.querySelectorAll('.section-fade-in');
+            if (sectionsToFade.length > 0) {
+                const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                sectionsToFade.forEach(section => fadeInObserver.observe(section));
+            }
+            
+            const accordion = document.getElementById('faq-accordion');
+            if (accordion) {
+                const faqButtons = accordion.querySelectorAll('.faq-question');
+                faqButtons.forEach(button => {
+                    const plusIcon = button.querySelector('.faq-icon-plus');
+                    const minusIcon = button.querySelector('.faq-icon-minus');
+                    button.addEventListener('click', () => {
+                        const content = document.getElementById(button.getAttribute('aria-controls'));
+                        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                        faqButtons.forEach(btn => {
+                            if (btn !== button) {
+                                btn.setAttribute('aria-expanded', 'false');
+                                const otherContent = document.getElementById(btn.getAttribute('aria-controls'));
+                                if(otherContent) otherContent.style.maxHeight = '0px';
+                                btn.querySelector('.faq-icon-plus').classList.remove('opacity-0', 'scale-0');
+                                btn.querySelector('.faq-icon-minus').classList.add('opacity-0', 'scale-0');
+                            }
+                        });
+                        if (!isExpanded && content) {
+                            button.setAttribute('aria-expanded', 'true');
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            plusIcon.classList.add('opacity-0', 'scale-0');
+                            minusIcon.classList.remove('opacity-0', 'scale-0');
+                        } else {
+                            button.setAttribute('aria-expanded', 'false');
+                            if(content) content.style.maxHeight = '0px';
+                            plusIcon.classList.remove('opacity-0', 'scale-0');
+                            minusIcon.classList.add('opacity-0', 'scale-0');
+                        }
+                    });
+                });
+            }
+
+            const navSections = document.querySelectorAll('main section[id]');
+            const navLinks = document.querySelectorAll('header nav a.nav-link');
+             if(navSections.length > 0 && navLinks.length > 0) {
+                const navObserver = new IntersectionObserver((entries) => {
+                    let currentSectionId = '';
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) currentSectionId = entry.target.getAttribute('id');
+                    });
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${currentSectionId}`);
+                    });
+                }, { rootMargin: '-40% 0px -60% 0px', threshold: 0 });
+                navSections.forEach(section => navObserver.observe(section));
+            }
+        });
+    </script>
+
+</body>
+</html>
+
